@@ -22,15 +22,9 @@ create table auto_service (
 	color text 
 )
 
- ------  Запрос для проверки.  Mileage увеличивается.
-
-select date, mileage, 
-vin
-from auto_service 
- where vin is not null and vin <> ''
- order by vin, date  
  
- ------ Данным запросом можно проверить столбец на наличие дубликатов и посчитать кол-во повторов
+ 
+ ------ Данным запросом можно проверить столбец на наличие дубликатов. Дли примера возьмем столбец "car"
  select car, count(*) AS quantity
 from auto_service as2 
 group by car
@@ -62,7 +56,7 @@ SELECT service
 FROM auto_service as2 
 WHERE NULLIF(as2.service , ' ') IS NULL
 
------ Заполняем пустые строки в столбцах обновлением 
+----- Заполняем пустые строки в столбцах
 
  -- Обновление w_exp
 update auto_service as1
@@ -76,7 +70,7 @@ update auto_service as1
 set w_name = (
 select w_name 
 from auto_service as as2
-where as1.w_phone = as2.w_phone and as2.w_name is not null limit 1) where as1.w_name is null  -- так быстрее
+where as1.w_phone = as2.w_phone and as2.w_name is not null limit 1) where as1.w_name is null  
 
 
 --- Обновление w_phone
@@ -204,7 +198,7 @@ car_color VARCHAR(255),
 car_vin VARCHAR(255), 
 car_number VARCHAR(255)
 )
----------  Создаем таблицу order_detais и строим связи
+---------  Создаем таблицу order_details и строим связи
 
 create table order_details ( 
 order_id SERIAL PRIMARY KEY,
